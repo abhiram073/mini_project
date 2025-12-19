@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Traffic Violation Detection{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">Detection Results</h2>
+                    <p class="text-muted mb-0">File: {{ filename }}</p>
+                </div>
+                <a href="{{ url_for('home') }}" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Upload
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if violations %}
+        <!-- Violations Found -->
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-warning d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle me-3 fs-4"></i>
+                    <div>
+                        <strong>{{ violations|length }} violation(s) detected</strong>
+                        <div class="small">Please review the details below</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Violations Grid -->
+        <div class="row">
+            {% for violation in violations %}
+            <div class="col-lg-6 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0 text-capitalize">
+                                {{ violation.violation_type.replace('_', ' ') }}
+                            </h5>
+                            <span class="badge bg-primary">
+                                {{ (violation.confidence * 100)|round(1) }}% confidence
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-muted">Detection Details</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>Type:</strong> {{ violation.violation_type.replace('_', ' ').title() }}</li>
+                                    <li><strong>Confidence:</strong> {{ (violation.confidence * 100)|round(1) }}%</li>
+                                    <li><strong>Timestamp:</strong> {{ violation.timestamp }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                {% if violation.result_image %}
+                                <img src="/static/results/{{ violation.result_image }}" 
+                                     class="img-fluid rounded shadow-sm" 
+                                     alt="Detection result">
+                                {% else %}
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                     style="height: 150px;">
+                                    <i class="bi bi-image text-muted fs-1"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="bi bi-clock me-1"></i>
+                                {{ violation.timestamp }}
+                            </small>
+                            <div>
+                                <span class="badge bg-{{ 'danger' if violation.violation_type == 'red_light_jump' else 'warning' if violation.violation_type == 'no_helmet' else 'info' }}">
+                                    {{ violation.violation_type.replace('_', ' ').title() }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Next Steps</h5>
+                        <p class="card-text text-muted">
+                            These violations have been automatically detected and saved to the database. 
+                            You can view all reports or generate statistics from the dashboard.
+                        </p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{{ url_for('reports') }}" class="btn btn-primary">
+                                <i class="bi bi-file-text me-2"></i>View All Reports
+                            </a>
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary">
+                                <i class="bi bi-graph-up me-2"></i>View Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        <!-- No Violations -->
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm text-center">
+                    <div class="card-body py-5">
+                        <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
+                        <h3 class="mt-3 mb-2">No Violations Detected</h3>
+                        <p class="text-muted mb-4">
+                            Great! No traffic violations were found in the uploaded file. 
+                            The system has analyzed the content and found no instances of:
+                        </p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check text-success me-2"></i>Red light jumping</li>
+                            <li><i class="bi bi-check text-success me-2"></i>Helmet violations</li>
+                            <li><i class="bi bi-check text-success me-2"></i>Triple riding</li>
+                            <li><i class="bi bi-check text-success me-2"></i>Wrong lane driving</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="{{ url_for('home') }}" class="btn btn-primary">
+                                <i class="bi bi-upload me-2"></i>Upload Another File
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
