@@ -1,8 +1,8 @@
-# 🚦 Traffic Violation Detection System
+#  Traffic Violation Detection System
 
 An AI-powered web application for detecting traffic violations using YOLOv8 and Flask.
 
-## 🎯 Features
+##  Features
 
 - **AI-Powered Detection**: Uses YOLOv8 for detecting various traffic violations
 - **Multiple Violation Types**: Red-light jumping, helmet violations, triple riding, wrong-lane driving
@@ -13,7 +13,7 @@ An AI-powered web application for detecting traffic violations using YOLOv8 and 
 - **REST API**: JSON endpoints for integration
 - **Responsive UI**: Modern Bootstrap 5 interface with dark blue theme
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -90,7 +90,7 @@ traffic_violation_app/
 - View violation trends
 - Monitor system status
 
-## 🔧 Configuration
+##  Configuration
 
 ### Model Configuration
 Edit `models/violation_model.py` to:
@@ -124,7 +124,7 @@ curl http://localhost:5000/api/violations
 curl http://localhost:5000/api/stats
 ```
 
-## 🎨 Customization
+##  Customization
 
 ### UI Theme
 Edit `static/css/style.css` to customize:
@@ -138,7 +138,7 @@ Modify `models/violation_model.py`:
 - Adjust detection logic
 - Change confidence thresholds
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -171,7 +171,7 @@ Modify `models/violation_model.py`:
 - Process videos in chunks for large files
 - Consider GPU acceleration for better performance
 
-## 📊 System Requirements
+##  System Requirements
 
 ### Minimum Requirements
 - Python 3.8+
@@ -184,14 +184,14 @@ Modify `models/violation_model.py`:
 - GPU with CUDA support (for faster processing)
 - 10GB free disk space
 
-## 🔒 Security Notes
+## Security Notes
 
 - File uploads are validated for type and size
 - SQLite database is local-only
 - No external API calls (unless configured)
 - File paths are sanitized
 
-## 📈 Performance
+##  Performance
 
 ### Processing Times
 - Images: 1-3 seconds
@@ -203,7 +203,7 @@ Modify `models/violation_model.py`:
 - Optimize video resolution
 - Batch process multiple files
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -211,11 +211,11 @@ Modify `models/violation_model.py`:
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
+##  License
 
 This project is open source. Feel free to use and modify as needed.
 
-## 🆘 Support
+##  Support
 
 For issues and questions:
 1. Check the troubleshooting section
@@ -223,7 +223,7 @@ For issues and questions:
 3. Ensure all dependencies are installed
 4. Verify file permissions
 
-## 🚀 Deployment
+##  Deployment
 
 ### Local Development
 ```bash
