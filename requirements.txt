@@ -16,7 +16,7 @@ Pillow>=10.0.0
 
 # File handling and utilities
 python-magic>=0.4.27
-python-magic-bin>=0.4.14  # For Windows
+python-magic  # For All
 
 # Development and testing
 pytest>=7.4.0
